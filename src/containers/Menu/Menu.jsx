@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { menuContext } from "../../contexts/menu";
 import MenuList from "../../components/MenuItems/MenuItems";
 import MenuItem from "../../components/MenuItems/MenuItem";
+import { menuItems } from "../../mock/data";
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +46,18 @@ const Spacer = styled.div`
   margin-right: 0.5em;
 `;
 
-const menuItems = ["About", "Work", "Experience", "Education"];
+const Index = styled.div`
+  opacity: ${(props) => (props.activeItem === -1 ? 0.1 : 1)};
+  font-size: 2rem;
+`;
+
+const InfoItem = styled.p`
+  text-align: right;
+`;
+
+const Services = styled.p`
+  font-size: 0.6rem;
+`;
 
 const Menu = (props) => {
   const { state: menuState } = useContext(menuContext);
@@ -54,8 +66,18 @@ const Menu = (props) => {
   return (
     <Container active={menuState.active}>
       <Metadata>
-        <div>Top</div>
-        <div>bottom</div>
+        <div>
+          {activeItem === -1 ? (
+            <Services>Services</Services>
+          ) : (
+            menuItems[activeItem].info.map((infoItem) => (
+              <InfoItem>{infoItem}</InfoItem>
+            ))
+          )}
+        </div>
+        <Index activeItem={activeItem}>
+          {activeItem === -1 ? menuItems.length : activeItem + 1}
+        </Index>
       </Metadata>
       <Spacer />
       <MenuList>
@@ -68,7 +90,7 @@ const Menu = (props) => {
               index={index}
               activeItem={activeItem}
             >
-              {item}
+              {item.title}
             </MenuItem>
             <br />
           </>
