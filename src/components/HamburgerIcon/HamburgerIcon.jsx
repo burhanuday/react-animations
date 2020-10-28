@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
+import { menuContext } from "../../contexts/menu";
+
 const HamburgerIcon = (props) => {
+  const { state: menuState, dispatch } = useContext(menuContext);
+
   const Line = styled.div`
     height: 0.1em;
     width: 1.5em;
@@ -28,7 +32,7 @@ const HamburgerIcon = (props) => {
   `;
 
   return (
-    <Container>
+    <Container onClick={() => dispatch({ type: "TOGGLE_MENU" })}>
       <Line />
       <Line />
     </Container>
