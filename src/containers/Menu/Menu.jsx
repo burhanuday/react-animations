@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
+
 import { menuContext } from "../../contexts/menu";
+import MenuList from "../../components/MenuItems/MenuItems";
+import MenuItem from "../../components/MenuItems/MenuItem";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -22,46 +24,25 @@ const Container = styled.div`
     `}
 `;
 
-const MenuList = styled.nav``;
+const Metadata = styled.div`
+  flex: 0.7;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-const MenuItem = styled.a`
-  font-size: 4rem;
-  font-weight: 400;
-  position: relative;
-  display: inline-block;
-  opacity: 0.2;
+  padding: 3em 0;
 
-  transform: translateY(${(props) => props.index * 30 + 20}%);
+  justify-content: space-between;
+  align-items: flex-end;
+`;
 
-  transition: opacity 0.5s ease-in-out,
-    transform 0.6s ${(props) => props.index * 0.1 + 0.6}s ease-in-out;
-
-  ${(props) =>
-    props.menuActive &&
-    css`
-      transform: translateY(0);
-    `}
-
-  ${(props) =>
-    (props.index === props.activeItem || props.activeItem === -1) &&
-    css`
-      opacity: 1;
-    `}
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 0;
-    background-color: white;
-    transition: width 0.6s ease-in-out;
-  }
-
-  &:hover::after {
-    width: 100%;
-  }
+const Spacer = styled.div`
+  flex: 0.3;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
+  border-bottom: none;
+  margin-right: 0.5em;
 `;
 
 const menuItems = ["About", "Work", "Experience", "Education"];
@@ -72,6 +53,11 @@ const Menu = (props) => {
 
   return (
     <Container active={menuState.active}>
+      <Metadata>
+        <div>Top</div>
+        <div>bottom</div>
+      </Metadata>
+      <Spacer />
       <MenuList>
         {menuItems.map((item, index) => (
           <>
