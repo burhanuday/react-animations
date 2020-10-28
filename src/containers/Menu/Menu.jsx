@@ -31,7 +31,16 @@ const MenuItem = styled.a`
   display: inline-block;
   opacity: 0.2;
 
-  transition: opacity 0.5s ease-in-out;
+  transform: translateY(${(props) => props.index * 30 + 20}%);
+
+  transition: opacity 0.5s ease-in-out,
+    transform 0.6s ${(props) => props.index * 0.1 + 0.6}s ease-in-out;
+
+  ${(props) =>
+    props.menuActive &&
+    css`
+      transform: translateY(0);
+    `}
 
   ${(props) =>
     (props.index === props.activeItem || props.activeItem === -1) &&
@@ -67,6 +76,7 @@ const Menu = (props) => {
         {menuItems.map((item, index) => (
           <>
             <MenuItem
+              menuActive={menuState.active}
               onMouseOver={() => setActiveItem(index)}
               onMouseOut={() => setActiveItem(-1)}
               index={index}
