@@ -6,6 +6,7 @@ import MenuList from "../../components/MenuItems/MenuItems";
 import MenuItem from "../../components/MenuItems/MenuItem";
 import { menuItems } from "../../mock/data";
 import InfoItems from "../../components/InfoItems/InfoItems";
+import MenuIndex from "../../components/MenuIndex/MenuIndex";
 
 const Container = styled.div`
   display: flex;
@@ -47,11 +48,6 @@ const Spacer = styled.div`
   margin-right: 0.5em;
 `;
 
-const Index = styled.div`
-  opacity: ${(props) => (props.activeItem === -1 ? 0.1 : 1)};
-  font-size: 2rem;
-`;
-
 const Menu = (props) => {
   const { state: menuState } = useContext(menuContext);
   const [activeItem, setActiveItem] = useState(-1);
@@ -62,9 +58,7 @@ const Menu = (props) => {
         <div>
           <InfoItems key="info-items" activeItem={activeItem} />
         </div>
-        <Index activeItem={activeItem}>
-          {activeItem === -1 ? menuItems.length : activeItem + 1}
-        </Index>
+        <MenuIndex activeItem={activeItem} />
       </Metadata>
       <Spacer />
       <MenuList>
