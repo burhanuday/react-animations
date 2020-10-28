@@ -5,6 +5,7 @@ import { menuContext } from "../../contexts/menu";
 import MenuList from "../../components/MenuItems/MenuItems";
 import MenuItem from "../../components/MenuItems/MenuItem";
 import { menuItems } from "../../mock/data";
+import InfoItems from "../../components/InfoItems/InfoItems";
 
 const Container = styled.div`
   display: flex;
@@ -51,14 +52,6 @@ const Index = styled.div`
   font-size: 2rem;
 `;
 
-const InfoItem = styled.p`
-  text-align: right;
-`;
-
-const Services = styled.p`
-  font-size: 0.6rem;
-`;
-
 const Menu = (props) => {
   const { state: menuState } = useContext(menuContext);
   const [activeItem, setActiveItem] = useState(-1);
@@ -67,13 +60,7 @@ const Menu = (props) => {
     <Container active={menuState.active}>
       <Metadata>
         <div>
-          {activeItem === -1 ? (
-            <Services>Services</Services>
-          ) : (
-            menuItems[activeItem].info.map((infoItem) => (
-              <InfoItem>{infoItem}</InfoItem>
-            ))
-          )}
+          <InfoItems key="info-items" activeItem={activeItem} />
         </div>
         <Index activeItem={activeItem}>
           {activeItem === -1 ? menuItems.length : activeItem + 1}
@@ -84,6 +71,7 @@ const Menu = (props) => {
         {menuItems.map((item, index) => (
           <>
             <MenuItem
+              key={`${index}`}
               menuActive={menuState.active}
               onMouseOver={() => setActiveItem(index)}
               onMouseOut={() => setActiveItem(-1)}
@@ -92,7 +80,7 @@ const Menu = (props) => {
             >
               {item.title}
             </MenuItem>
-            <br />
+            <br key={`br-${index}`} />
           </>
         ))}
       </MenuList>
