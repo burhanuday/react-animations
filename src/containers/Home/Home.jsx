@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { menuContext } from "../../contexts/menu";
 import Menu from "../Menu/Menu";
 import Sidebar from "../Sidebar/Sidebar";
 
@@ -30,14 +29,11 @@ const Title = styled.h1`
 `;
 
 const Home = (props) => {
-  const { state: menuState } = useContext(menuContext);
-
   return (
     <Container>
       <Main>
         <Title>Hello, I am Burhanuddin!</Title>
-
-        {menuState.active ? <Menu /> : null}
+        <Menu />
       </Main>
       <Sidebar />
     </Container>
