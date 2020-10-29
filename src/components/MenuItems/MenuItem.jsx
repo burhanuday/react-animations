@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const MenuItem = styled.a`
+const MenuItem = styled.div`
   font-size: 4rem;
   font-weight: 400;
   position: relative;

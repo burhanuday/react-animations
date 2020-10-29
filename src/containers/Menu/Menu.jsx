@@ -7,6 +7,7 @@ import MenuItem from "../../components/MenuItems/MenuItem";
 import { menuItems } from "../../mock/data";
 import InfoItems from "../../components/InfoItems/InfoItems";
 import MenuIndex from "../../components/MenuIndex/MenuIndex";
+import CursorImage from "../../components/CursorImage/CursorImage";
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const Container = styled.div`
     props.active &&
     css`
       transform: translateY(0%);
-    `}
+    `};
 `;
 
 const Metadata = styled.div`
@@ -51,6 +52,16 @@ const Spacer = styled.div`
 const Menu = (props) => {
   const { state: menuState } = useContext(menuContext);
   const [activeItem, setActiveItem] = useState(-1);
+  const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e, index) => {
+    console.log("onMouseMove", e.nativeEvent.clientX, e.nativeEvent.clientY);
+    setActiveItem(index);
+    setMouseCoordinates({
+      x: e.nativeEvent.clientX,
+      y: e.nativeEvent.clientY,
+    });
+  };
 
   return (
     <Container active={menuState.active}>
@@ -67,7 +78,7 @@ const Menu = (props) => {
             <MenuItem
               key={`${index}`}
               menuActive={menuState.active}
-              onMouseOver={() => setActiveItem(index)}
+              onMouseMove={(e) => handleMouseMove(e, index)}
               onMouseOut={() => setActiveItem(-1)}
               index={index}
               activeItem={activeItem}
@@ -78,6 +89,11 @@ const Menu = (props) => {
           </>
         ))}
       </MenuList>
+
+      <CursorImage
+        activeItem={activeItem}
+        mouseCoordinates={mouseCoordinates}
+      />
     </Container>
   );
 };
