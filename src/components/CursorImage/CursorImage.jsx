@@ -1,4 +1,4 @@
-import { useTrail, animated } from "react-spring";
+import { useTrail, animated, config } from "react-spring";
 import styled from "styled-components";
 import { menuItems } from "../../mock/data";
 
@@ -23,9 +23,7 @@ const CursorImage = ({ activeItem, mouseCoordinates: { x, y } }) => {
   const trail = useTrail(1, {
     left: `${x - 250}px`,
     top: `${y - 50}px`,
-    mass: 1000,
-    tension: 1000,
-    friction: 50,
+    config: config.molasses
   });
 
   return trail.map((props, index) => (
